@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Melhorias da Escola</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7f9; color: #334155; }
+        .tab-button { transition: all 0.2s ease-in-out; }
+        .tab-button.active { border-bottom-color: #3b82f6; color: #3b82f6; font-weight: 700; }
+        .tab-content { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .editable-table td[contenteditable="true"]:hover {
+            background-color: #eff6ff;
+        }
+        .editable-table td[contenteditable="true"]:focus {
+            background-color: #dbeafe;
+            outline: 2px solid #2563eb;
+        }
+        .folder-tree ul { padding-left: 1.5rem; border-left: 2px dotted #cbd5e1; }
+        .folder-tree li { position: relative; list-style-type: none; margin: 0.5rem 0; }
+        .folder-tree li::before { content: '📁'; margin-right: 0.5rem; }
+        .process-step {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 3px solid #dbeafe;
+        }
+        .process-step:last-child {
+            border-left: 3px solid transparent;
+            padding-bottom: 0;
+        }
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: -0.7rem;
+            top: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 3px solid #dbeafe;
+        }
+        #print-area { display: none; }
+        @media print {
+            body * { visibility: hidden; }
+            .no-print { display: none; }
+            #print-area, #print-area * {
+                visibility: visible !important;
+            }
+            #print-area {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white text-center py-12 px-6 shadow-sm no-print">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#1e3a8a]">Plano de Melhorias da Escola</h1>
+            <p class="max-w-3xl mx-auto mt-4 text-lg text-slate-600">Um espaço colaborativo para construir uma escola ainda melhor. Navegue pelas abas para conhecer as propostas.</p>
+        </div>
+    </header>
+
+    <nav class="bg-white shadow-md sticky top-0 z-10 no-print">
+        <div class="container mx-auto flex justify-center border-b flex-wrap">
+            <button class="tab-button py-4 px-6 border-b-2 border-transparent text-lg" data-tab="alinhamento">🗣️ Alinhamento Pedagógico</button>
+            <button class="tab-button py-4 px-6 border-b-2 border-transparent text-lg" data-tab="ppp">🧭 Nosso PPP</button>
+            <button class="tab-button py-4 px-6 border-b-2 border-transparent text-lg" data-tab="documentos">🗂️ Gestão de Documentos</button>
+            <button class="tab-button py-4 px-6 border-b-2 border-transparent text-lg" data-tab="comunicacao">📧 Comunicação Interna</button>
+            <button class="tab-button py-4 px-6 border-b-2 border-transparent text-lg" data-tab="redes-sociais">📢 Redes Sociais</button>
+            <button class="tab-button py-4 px-6 border-b-2 border-transparent text-lg" data-tab="reuniao-pais">👨‍👩‍👧‍👦 Reunião de Pais</button>
+            <button class="tab-button py-4 px-6 border-b-2 border-transparent text-lg" data-tab="cronograma">🗓️ Cronograma</button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12">
+        <div id="alinhamento" class="tab-content">
+            <section class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Proposta: Reuniões de Alinhamento da Equipe Pedagógica</h2>
+                <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Estabelecer uma rotina de encontros semanais para garantir que a equipe pedagógica esteja coesa, informada e focada nos mesmos objetivos.</p>
+            </section>
+
+            <section class="mt-16">
+                 <h3 class="text-2xl font-bold text-slate-700 mb-8 text-center">Protocolo da Reunião Semanal</h3>
+                 <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-xl font-bold text-blue-600 mb-3">🎯 Propósito</h4>
+                            <p>Analisar as demandas da semana, tomar decisões ágeis, alinhar estratégias e garantir que todos os membros da equipe (supervisão, direção, coordenação) estejam na mesma página.</p>
+                        </div>
+                        <div>
+                             <h4 class="text-xl font-bold text-blue-600 mb-3">🗓️ Dinâmica</h4>
+                             <ul class="space-y-2">
+                                <li class="flex items-center"><span class="mr-2"><strong>Quando:</strong></span> Preferencialmente às Quartas-feiras.</li>
+                                <li class="flex items-center"><span class="mr-2"><strong>Horário:</strong></span> Período noturno, para facilitar a participação.</li>
+                                <li class="flex items-center"><span class="mr-2"><strong>Duração:</strong></span> Máximo de 1h30, com pauta definida.</li>
+                             </ul>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+
+             <section class="mt-16">
+                 <h3 class="text-2xl font-bold text-slate-700 mb-8 text-center">Ata e Plano de Ação da Reunião</h3>
+                 <div id="ata-form-area" class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                    <div class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="ata-data" class="block text-sm font-medium text-gray-700">Data da Reunião</label>
+                                <input type="date" id="ata-data" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                            </div>
+                            <div>
+                                <label for="ata-participantes" class="block text-sm font-medium text-gray-700">Participantes</label>
+                                <input type="text" id="ata-participantes" placeholder="Nomes, separados por vírgula" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="ata-revisao" class="block text-lg font-semibold text-gray-700">1. Revisão do Plano de Ação Anterior</label>
+                            <p class="text-sm text-gray-500 mb-2">Análise do status das ações definidas na última reunião.</p>
+                            <textarea id="ata-revisao" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"></textarea>
+                        </div>
+                         <div>
+                            <label for="ata-pautas" class="block text-lg font-semibold text-gray-700">2. Pautas da Reunião Atual</label>
+                             <p class="text-sm text-gray-500 mb-2">Pontos urgentes, casos de alunos, necessidades dos professores, etc.</p>
+                            <textarea id="ata-pautas" rows="6" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"></textarea>
+                        </div>
+                         <div>
+                            <label for="ata-deliberacoes" class="block text-lg font-semibold text-gray-700">3. Deliberações e Decisões</label>
+                             <p class="text-sm text-gray-500 mb-2">Principais decisões tomadas pela equipe durante a reunião.</p>
+                            <textarea id="ata-deliberacoes" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3"></textarea>
+                        </div>
+                         <div>
+                            <label class="block text-lg font-semibold text-gray-700">4. Novo Plano de Ação</label>
+                             <p class="text-sm text-gray-500 mb-2">Ações, responsáveis e prazos para a próxima semana.</p>
+                            <div class="w-full overflow-x-auto mt-2">
+                                <table id="plano-acao-table" class="w-full text-sm text-left text-gray-500 editable-table">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-4 py-3">Ação</th>
+                                            <th scope="col" class="px-4 py-3">Responsável(is)</th>
+                                            <th scope="col" class="px-4 py-3">Prazo</th>
+                                            <th scope="col" class="px-4 py-3">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white border-b"><td class="px-4 py-2" contenteditable="true"></td><td class="px-4 py-2" contenteditable="true"></td><td class="px-4 py-2" contenteditable="true"></td><td class="px-4 py-2" contenteditable="true">A Fazer</td></tr>
+                                        <tr class="bg-white border-b"><td class="px-4 py-2" contenteditable="true"></td><td class="px-4 py-2" contenteditable="true"></td><td class="px-4 py-2" contenteditable="true"></td><td class="px-4 py-2" contenteditable="true">A Fazer</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button id="add-action-btn" class="mt-4 text-sm font-semibold text-blue-600 hover:text-blue-800">+ Adicionar Ação</button>
+                        </div>
+                    </div>
+                     <div class="text-center mt-8">
+                        <button id="gerar-ata-pdf" class="bg-[#007BFF] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#0056b3] transition-colors">
+                            Gerar PDF da Ata
+                        </button>
+                    </div>
+                 </div>
+            </section>
+        </div>
+
+        <div id="ppp" class="tab-content">
+             <section class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Sistemática de Revisão do Projeto Político Pedagógico (PPP)</h2>
+                <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Garantir que nosso PPP seja um documento vivo, relevante e construído democraticamente, que reflita as necessidades atuais e futuras da nossa comunidade escolar.</p>
+            </section>
+            
+            <section class="mt-16">
+                <h3 class="text-2xl font-bold text-slate-700 mb-8 text-center">O Ciclo de Revisão Anual do PPP</h3>
+                 <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                    <p class="text-center text-slate-600 mb-8">O PPP é o coração da escola, e seu vigor depende de um processo contínuo de escuta, análise e aprimoramento. Nosso ciclo de revisão é desenhado para garantir a participação de todos.</p>
+                    <div class="process-flow">
+                        <div class="process-step"><h4 class="text-xl font-bold text-blue-700">1. Análise e Revisão</h4><p class="text-slate-600">O Conselho Escolar analisa os dados do ano letivo e elabora uma proposta de atualização do PPP.</p></div>
+                        <div class="process-step"><h4 class="text-xl font-bold text-blue-700">2. Apresentação à Comunidade</h4><p class="text-slate-600">A proposta de revisão é apresentada de forma clara aos pais, alunos e professores.</p></div>
+                        <div class="process-step"><h4 class="text-xl font-bold text-blue-700">3. Escuta Ativa e Participação</h4><p class="text-slate-600">Abre-se um período para que a comunidade escolar envie sugestões e contribuições.</p></div>
+                        <div class="process-step"><h4 class="text-xl font-bold text-blue-700">4. Consolidação e Ajuste Final</h4><p class="text-slate-600">O Conselho Escolar analisa as contribuições e redige a versão final do PPP para o novo ciclo.</p></div>
+                        <div class="process-step"><h4 class="text-xl font-bold text-green-600">5. Aprovação e Divulgação</h4><p class="text-slate-600">A versão final é aprovada e amplamente divulgada, tornando-se o documento norteador oficial.</p></div>
+                    </div>
+                 </div>
+            </section>
+        </div>
+
+        <div id="documentos" class="tab-content">
+             <section class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Proposta: Organização e Gestão de Documentos</h2>
+                <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Centralizar e padronizar nossa documentação para otimizar o tempo, aumentar a segurança e eliminar ruídos.</p>
+            </section>
+             <section class="mt-16">
+                 <h3 class="text-2xl font-bold text-slate-700 mb-6 text-center">Diagnóstico: O Custo da Desorganização</h3>
+                 <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+                        <h4 class="text-xl font-bold mb-2">Desperdício de Tempo</h4>
+                        <p class="text-slate-600">Profissionais perdem um tempo valioso procurando por documentos em pastas desestruturadas e locais diferentes.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+                        <h4 class="text-xl font-bold mb-2">Acesso Dificultado</h4>
+                        <p class="text-slate-600">A falta de um sistema centralizado impede o acesso rápido a documentos importantes fora do ambiente físico da escola.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+                        <h4 class="text-xl font-bold mb-2">Insegurança e Ruído</h4>
+                        <p class="text-slate-600">Documentos desatualizados ou versões incorretas são utilizados, gerando erros e retrabalho nos processos.</p>
+                    </div>
+                </div>
+            </section>
+             <section class="mt-16">
+                 <h3 class="text-2xl font-bold text-slate-700 mb-8 text-center">A Solução: Drive Centralizado e Padronizado</h3>
+                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto items-start">
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h4 class="text-xl font-bold text-blue-600 mb-4">Estrutura de Pastas Sugerida</h4>
+                        <div class="folder-tree p-4 bg-slate-50 rounded-md font-mono text-sm">
+                            <ul><li><strong>EEBAZ</strong><ul><li><strong>01_ADMINISTRATIVO</strong><ul><li>Atas de Reunião</li><li>Comunicados Oficiais</li></ul></li><li><strong>02_PEDAGÓGICO</strong><ul><li>Planos de Ensino</li><li>Projetos Pedagógicos</li></ul></li><li><strong>03_TURMAS</strong><ul><li>2025<ul><li>Turma 101</li></ul></li></ul></li><li><strong>04_RECURSOS</strong><ul><li>Modelos de Documentos</li></ul></li></ul></li></ul>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h4 class="text-xl font-bold text-blue-600 mb-4">Protocolo de Nomenclatura de Arquivos</h4>
+                        <div class="bg-slate-800 text-white p-4 rounded-lg font-mono">
+                            <p class="text-slate-400">// Padrão: AAAA-MM-DD_Assunto.extensão</p>
+                            <p class="mt-2">2025-06-15_AtaReuniaoPais.pdf</p>
+                            <p>2025-05-20_PlanoEnsino_Matematica_901.docx</p>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+        </div>
+
+        <div id="comunicacao" class="tab-content">
+            <section class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Proposta: Cultura de Comunicação via E-mail</h2>
+                <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Implementar o e-mail como ferramenta oficial para a comunicação interna, garantindo clareza, registro e profissionalismo.</p>
+            </section>
+            <section class="mt-16">
+                 <h3 class="text-2xl font-bold text-slate-700 mb-6 text-center">Diagnóstico: Nossos Ruídos de Comunicação</h3>
+                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+                        <h4 class="text-xl font-bold mb-2">Dependência do Informal</h4>
+                        <p class="text-slate-600">Comunicações importantes são feitas em corredores ou via WhatsApp pessoal, gerando esquecimentos e falta de registro formal.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+                        <h4 class="text-xl font-bold mb-2">Falta de Centralização</h4>
+                        <p class="text-slate-600">Dificuldade em encontrar informações e decisões passadas. Não há um histórico confiável para consulta.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="mt-16">
+                <h3 class="text-2xl font-bold text-slate-700 mb-8 text-center">Protocolo de Comunicação Interna via E-mail</h3>
+                 <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                    <div class="space-y-6">
+                        <div><h4 class="text-xl font-bold text-blue-600">O QUÊ comunicar?</h4><p><strong>Assuntos Oficiais:</strong> Convocações para reuniões, atas, comunicados da direção/supervisão, compartilhamento de documentos importantes, diretrizes pedagógicas, solicitações formais.</p></div>
+                        <div><h4 class="text-xl font-bold text-blue-600">QUANDO comunicar?</h4><p><strong>Expectativa de Resposta:</strong> E-mails devem ser lidos diariamente. A expectativa de resposta para solicitações é de até 48 horas úteis.</p></div>
+                    </div>
+                 </div>
+            </section>
+        </div>
+
+        <div id="redes-sociais" class="tab-content">
+            <section class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Proposta: Reativação e Estratégia das Redes Sociais</h2>
+                <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Vamos transformar nossas redes em uma vitrine do incrível trabalho realizado por nossos alunos e professores.</p>
+            </section>
+            <section class="mt-16">
+                <h3 class="text-2xl font-bold text-slate-700 mb-6 text-center">Diagnóstico Atual</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500"><h4 class="text-xl font-bold mb-2">Instagram & Facebook</h4><p class="text-slate-600">Postagens esporádicas, sem uma linha editorial definida. O potencial de engajamento com alunos e a comunidade é pouco explorado.</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500"><h4 class="text-xl font-bold mb-2">WhatsApp</h4><p class="text-slate-600">Usado principalmente de forma reativa, para comunicação de problemas ou convocações urgentes, o que pode gerar uma percepção negativa.</p></div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500"><h4 class="text-xl font-bold mb-2">Oportunidade Perdida</h4><p class="text-slate-600">Deixamos de mostrar os projetos incríveis, as conquistas dos alunos e o dia a dia vibrante da escola, que são nosso maior diferencial.</p></div>
+                </div>
+            </section>
+            <section class="mt-16">
+                <h3 class="text-2xl font-bold text-slate-700 mb-8 text-center">Nossa Nova Estratégia: Duas Frentes de Comunicação</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-8 rounded-xl shadow-2xl transform hover:scale-105 transition-transform"><h4 class="text-3xl font-extrabold mb-4">Frente Grêmio Estudantil</h4><p class="mb-6 font-medium">Uma comunicação com linguagem jovem e autêntica, feita por alunos para alunos, mostrando o coração da escola.</p></div>
+                    <div class="bg-gradient-to-br from-slate-700 to-slate-800 text-white p-8 rounded-xl shadow-2xl transform hover:scale-105 transition-transform"><h4 class="text-3xl font-extrabold mb-4">Frente Gestão Escolar</h4><p class="mb-6 font-medium">A voz oficial da escola, garantindo uma comunicação clara, profissional e centralizada com os pais e responsáveis.</p></div>
+                </div>
+            </section>
+        </div>
+
+        <div id="reuniao-pais" class="tab-content">
+             <section class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Proposta: Reuniões de Pais como Parceria Ativa</h2>
+                <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Transformar as reuniões periódicas em encontros construtivos e colaborativos, fortalecendo a relação entre escola e família.</p>
+            </section>
+            <section class="mt-16">
+                <h3 class="text-2xl font-bold text-slate-700 mb-8 text-center">Estrutura da Reunião: Celebrar e Construir</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h4 class="text-2xl font-bold mb-4 text-green-600">Pauta Positiva: Celebrando Conquistas</h4>
+                        <p class="text-slate-600 mb-6">Iniciar a reunião valorizando o progresso e o esforço dos alunos é fundamental para criar um ambiente de confiança e motivação.</p>
+                    </div>
+                     <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h4 class="text-2xl font-bold mb-4 text-amber-600">Pauta Construtiva: Desafios e Soluções</h4>
+                        <p class="text-slate-600 mb-6">Para turmas com desafios, a abordagem é de parceria para encontrar soluções, sem focar em culpados, mas sim em ações.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="cronograma" class="tab-content">
+             <section class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Cronograma de Ações</h2>
+                <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Planeje as atividades, reuniões e ações da escola de forma visual e colaborativa. Clique em uma célula para editar seu conteúdo.</p>
+            </section>
+            <div class="w-full overflow-x-auto mt-12 bg-white p-6 rounded-lg shadow-lg">
+                <table class="w-full border-collapse text-center schedule-table">
+                    <thead>
+                        <tr>
+                            <th class="p-3 border-b-2 border-slate-200 bg-slate-50">Horário</th>
+                            <th colspan="5" class="p-3 border-b-2 border-slate-200 bg-blue-100">Matutino</th>
+                            <th colspan="5" class="p-3 border-b-2 border-slate-200 bg-amber-100">Vespertino</th>
+                            <th colspan="5" class="p-3 border-b-2 border-slate-200 bg-slate-200">Noturno</th>
+                        </tr>
+                        <tr>
+                            <th class="p-2 border-b border-slate-200 bg-slate-50 w-24"></th>
+                            <th class="p-2 border-b border-slate-200 bg-blue-50 w-40">Segunda</th>
+                            <th class="p-2 border-b border-slate-200 bg-blue-50 w-40">Terça</th>
+                            <th class="p-2 border-b border-slate-200 bg-blue-50 w-40">Quarta</th>
+                            <th class="p-2 border-b border-slate-200 bg-blue-50 w-40">Quinta</th>
+                            <th class="p-2 border-b border-slate-200 bg-blue-50 w-40">Sexta</th>
+                            <th class="p-2 border-b border-slate-200 bg-amber-50 w-40">Segunda</th>
+                            <th class="p-2 border-b border-slate-200 bg-amber-50 w-40">Terça</th>
+                            <th class="p-2 border-b border-slate-200 bg-amber-50 w-40">Quarta</th>
+                            <th class="p-2 border-b border-slate-200 bg-amber-50 w-40">Quinta</th>
+                            <th class="p-2 border-b border-slate-200 bg-amber-50 w-40">Sexta</th>
+                             <th class="p-2 border-b border-slate-200 bg-slate-100 w-40">Segunda</th>
+                            <th class="p-2 border-b border-slate-200 bg-slate-100 w-40">Terça</th>
+                            <th class="p-2 border-b border-slate-200 bg-slate-100 w-40">Quarta</th>
+                            <th class="p-2 border-b border-slate-200 bg-slate-100 w-40">Quinta</th>
+                            <th class="p-2 border-b border-slate-200 bg-slate-100 w-40">Sexta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="h-20"><td class="p-2 border border-slate-200 font-semibold bg-slate-50">1ª Aula</td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td></tr>
+                        <tr class="h-20"><td class="p-2 border border-slate-200 font-semibold bg-slate-50">2ª Aula</td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td></tr>
+                        <tr class="h-20"><td class="p-2 border border-slate-200 font-semibold bg-slate-50">3ª Aula</td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td></tr>
+                        <tr class="h-20"><td class="p-2 border border-slate-200 font-semibold bg-slate-50">4ª Aula</td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td></tr>
+                        <tr class="h-20"><td class="p-2 border border-slate-200 font-semibold bg-slate-50">5ª Aula</td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td><td class="p-2 border border-slate-200" contenteditable="true"></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="print-area"></div>
+
+    <footer class="bg-white border-t mt-12 no-print">
+        <div class="container mx-auto px-6 py-6 text-center text-slate-500">
+            <p>&copy; 2025 - Equipe Pedagógica.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-button');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            document.querySelector('.tab-button[data-tab="alinhamento"]').classList.add('active');
+            document.querySelector('.tab-content#alinhamento').classList.add('active');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    if (tab.disabled) return;
+                    tabs.forEach(item => item.classList.remove('active'));
+                    tab.classList.add('active');
+                    const targetId = tab.getAttribute('data-tab');
+                    contents.forEach(content => {
+                        content.id === targetId ? content.classList.add('active') : content.classList.remove('active');
+                    });
+                });
+            });
+
+            document.getElementById('add-action-btn')?.addEventListener('click', () => {
+                const tableBody = document.querySelector('#plano-acao-table tbody');
+                const newRow = document.createElement('tr');
+                newRow.className = 'bg-white border-b';
+                newRow.innerHTML = `
+                    <td class="px-4 py-2" contenteditable="true"></td>
+                    <td class="px-4 py-2" contenteditable="true"></td>
+                    <td class="px-4 py-2" contenteditable="true"></td>
+                    <td class="px-4 py-2" contenteditable="true">A Fazer</td>
+                `;
+                tableBody.appendChild(newRow);
+            });
+
+            const gerarAtaBtn = document.getElementById('gerar-ata-pdf');
+            if(gerarAtaBtn) {
+                gerarAtaBtn.addEventListener('click', () => {
+                    const data = document.getElementById('ata-data').value;
+                    const participantes = document.getElementById('ata-participantes').value;
+                    const revisao = document.getElementById('ata-revisao').value;
+                    const pautas = document.getElementById('ata-pautas').value;
+                    const deliberacoes = document.getElementById('ata-deliberacoes').value;
+                    
+                    const actionRows = document.querySelectorAll('#plano-acao-table tbody tr');
+                    let actionsTable = '<table style="width: 100%; border-collapse: collapse; font-size: 12px;"><thead><tr style="background-color: #f1f5f9;"><th style="border: 1px solid #ccc; padding: 8px;">Ação</th><th style="border: 1px solid #ccc; padding: 8px;">Responsável(is)</th><th style="border: 1px solid #ccc; padding: 8px;">Prazo</th><th style="border: 1px solid #ccc; padding: 8px;">Status</th></tr></thead><tbody>';
+                    actionRows.forEach(row => {
+                        actionsTable += '<tr>';
+                        row.querySelectorAll('td').forEach(cell => {
+                            actionsTable += `<td style="border: 1px solid #ccc; padding: 8px;">${cell.innerHTML}</td>`;
+                        });
+                        actionsTable += '</tr>';
+                    });
+                    actionsTable += '</tbody></table>';
+
+                    if (!data || !participantes || !revisao || !pautas || !deliberacoes) {
+                        alert("Por favor, preencha todos os campos da ata antes de gerar o PDF.");
+                        return;
+                    }
+
+                    const printContent = `
+                        <div style="font-family: 'Inter', sans-serif; padding: 40px; color: #333;">
+                            <h1 style="text-align: center; color: #1e3a8a; font-size: 24px; margin-bottom: 40px;">Ata de Reunião de Alinhamento Pedagógico</h1>
+                            <div style="margin-bottom: 30px; font-size: 14px; border: 1px solid #eee; padding: 15px; border-radius: 5px;">
+                                <p><strong>Data:</strong> ${new Date(data).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</p>
+                                <p><strong>Participantes:</strong> ${participantes}</p>
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <h2 style="font-size: 18px; color: #3b82f6; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">1. Revisão do Plano de Ação Anterior</h2>
+                                <div style="font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${revisao}</div>
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <h2 style="font-size: 18px; color: #3b82f6; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">2. Pautas da Reunião Atual</h2>
+                                <div style="font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${pautas}</div>
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <h2 style="font-size: 18px; color: #3b82f6; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">3. Deliberações e Decisões</h2>
+                                <div style="font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${deliberacoes}</div>
+                            </div>
+                            <div>
+                                <h2 style="font-size: 18px; color: #3b82f6; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px;">4. Novo Plano de Ação</h2>
+                                ${actionsTable}
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.getElementById('print-area').innerHTML = printContent;
+                    window.print();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
